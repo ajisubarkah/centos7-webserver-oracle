@@ -1,0 +1,30 @@
+version: "3"
+networks:
+  nets:
+
+services:
+  centos:
+    build:
+      context: ./centos
+      dockerfile: Dockerfile
+    container_name: centos
+    ports:
+      - 80:80
+    links:
+      - "db"
+    tty: true
+    volumes:
+      - /var/www/html:/var/www/html
+      - ./instantclient:/instantclient
+    networks:
+      - nets
+
+  db:
+    image: oracleinanutshell/oracle-xe-11g
+    container_name: oracle
+    environment:
+      ORACLE_ALLOW_REMOTE: "true" 
+    ports:
+      - 1521:1521
+    networks: 
+      - nets

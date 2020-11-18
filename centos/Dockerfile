@@ -18,14 +18,9 @@ RUN yum-config-manager --enable remi-php74
 RUN yum --enablerepo=remi-php74 -y install libaio make php php-bcmath php-cli php-common php-devel php-fileinfo php-gd php-intl php-ldap php-mbstring \
     php-pear php-soap php-xml php-xmlrpc php-zip systemtap-sdt-devel
 
+CMD ["rpm", "-ivh", "./instantclient/oracle-*.rpm"]
 
-RUN rpm -ivh /instantclient/oracle-*.rpm
-
-RUN export PHP_DTRACE=yes
-
-RUN ldconfig
-
-RUN echo '' | pecl install oci8
+RUN export PHP_DTRACE=yes && ldconfig && echo '' | pecl install oci8
 
 RUN echo extension=oci8 >> /etc/php.ini
 

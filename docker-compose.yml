@@ -14,7 +14,7 @@ services:
       - "db"
     tty: true
     volumes:
-      - /var/www/html:/var/www/html
+      - ~/pjbs/siap_setting:/var/www/html
       - ./instantclient:/instantclient
     networks:
       - nets

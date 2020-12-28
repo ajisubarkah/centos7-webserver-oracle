@@ -10,7 +10,7 @@ RUN yum -y install httpd
 RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
     && rpm -Uvh http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 
-RUN yum install yum-utils
+RUN yum install -y yum-utils
 RUN yum-config-manager --enable remi-php74
 
 
@@ -20,7 +20,7 @@ RUN yum --enablerepo=remi-php74 -y install libaio make php php-bcmath php-cli ph
 
 CMD ["rpm", "-ivh", "./instantclient/oracle-*.rpm"]
 
-RUN export PHP_DTRACE=yes && ldconfig && echo '' | pecl install oci8
+RUN export PHP_DTRACE=yes && ldconfig && echo '' | pecl install oci8-2.2.0
 
 RUN echo extension=oci8 >> /etc/php.ini
 
